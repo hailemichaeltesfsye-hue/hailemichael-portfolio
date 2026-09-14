@@ -156,6 +156,10 @@ h1, h2, h3, h4, p { margin-top: 0; }h1, h2 { font-family: 'Space Grotesk', sans-
 .stack { display: flex; flex-wrap: wrap; gap: 7px; }
 .stack span { border: 1px solid var(--line); padding: 7px 9px; color: #adb1a8; font-family: 'DM Mono', monospace; font-size: 9px; transition: border-color .3s, color .3s; }
 .project-card:hover .stack span { border-color: var(--accent); color: var(--ink); }
+.project-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.project-link { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); padding: 8px 12px; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--muted); text-decoration: none; transition: border-color .3s, color .3s, background .3s; }
+.project-link:hover { border-color: var(--accent); color: var(--ink); background: rgba(255,255,255,.03); }
+.project-link svg { color: var(--accent); }
 .gold { --accent: var(--gold); --art-glow: rgba(213,174,87,.11); }
 .mint { --accent: var(--mint); --art-glow: rgba(128,200,173,.11); }
 .coral { --accent: var(--coral); --art-glow: rgba(230,133,108,.11); }

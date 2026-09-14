@@ -5,6 +5,8 @@ import {
   CircleDot,
   Code2,
   Database,
+  ExternalLink,
+  GitFork,
   Globe2,
   Mail,
   Menu,
@@ -26,6 +28,7 @@ const projects = [
     accent: 'gold',
     icon: Network,
     github: 'https://github.com/hailemichaeltesfsye-hue/ai-driven-healthcare-diagnostic-loop',
+    demos: [{ label: 'Live Demo', href: 'https://ai-driven-healthcare-diagnostic-loop-izbdsqfouzvc2cvanza7ry.streamlit.app/' }],
   },
   {
     number: '02',
@@ -37,6 +40,7 @@ const projects = [
     accent: 'mint',
     icon: CircleDot,
     github: 'https://github.com/hailemichaeltesfsye-hue/soc-agent-workforce',
+    demos: [{ label: 'Live Demo', href: 'https://soc-agent-workforce-2ltjjgpd7uuoyz3pnhpvcu.streamlit.app/' }],
   },
   {
     number: '03',
@@ -48,6 +52,7 @@ const projects = [
     accent: 'coral',
     icon: Code2,
     github: 'https://github.com/hailemichaeltesfsye-hue/ai-product-launch-team',
+    demos: [{ label: 'Live Demo', href: 'https://ai-appuct-launch-team-7vhjefw6zztlwx2oc2a6fz.streamlit.app/' }],
   },
   {
     number: '04',
@@ -59,6 +64,10 @@ const projects = [
     accent: 'lavender',
     icon: Globe2,
     github: 'https://github.com/hailemichaeltesfsye-hue/amazon-clone-backend',
+    demos: [
+      { label: 'Amazon Demo', href: 'https://amazon-clone-frontend-mxye-pwtq42tun-coremind2.vercel.app/' },
+      { label: 'Netflix Demo', href: 'https://hailemichaeltesfsye-hue.github.io/Netflix_Clone_2026A/' },
+    ],
   },
 ]
 
@@ -203,12 +212,7 @@ function App() {
 function ProjectCard({ project }) {
   const Icon = project.icon
   return (
-    <a
-      href={project.github}
-      target="_blank"
-      rel="noreferrer"
-      className={`project-card ${project.accent}`}
-    >
+    <div className={`project-card ${project.accent}`}>
       <div className="project-top">
         <span className="project-number">{project.number}</span>
         <Icon size={20} />
@@ -225,8 +229,18 @@ function ProjectCard({ project }) {
         <h4>{project.subtitle}</h4>
         <p>{project.description}</p>
         <div className="stack">{project.stack.map((item) => <span key={item}>{item}</span>)}</div>
+        <div className="project-links">
+          <a href={project.github} target="_blank" rel="noreferrer" className="project-link">
+            <GitFork size={14} /> Code
+          </a>
+          {project.demos?.map((demo) => (
+            <a key={demo.href} href={demo.href} target="_blank" rel="noreferrer" className="project-link">
+              <ExternalLink size={14} /> {demo.label}
+            </a>
+          ))}
+        </div>
       </div>
-    </a>
+    </div>
   )
 }
 
