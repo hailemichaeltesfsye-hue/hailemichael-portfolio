@@ -10,9 +10,11 @@ import {
   Globe2,
   Mail,
   Menu,
+  MessageSquare,
   Network,
   Send,
   Sparkles,
+  Tv,
   X,
 } from 'lucide-react'
 import { useState } from 'react'
@@ -57,16 +59,40 @@ const projects = [
   {
     number: '04',
     category: 'FULL-STACK ARCHITECTURE',
-    title: 'Amazon & Netflix Clones',
-    subtitle: 'High-Fidelity Web Industry Architectures',
-    description: 'Built production-grade web replicas mimicking Netflix and Amazon user experiences, integrating REST APIs, Stripe payments, and a secure MySQL database for dynamic authentication and streaming.',
+    title: 'Amazon Clone',
+    subtitle: 'High-Fidelity E-Commerce Architecture',
+    description: 'Built a production-grade web replica mimicking the Amazon user experience, integrating REST APIs, Stripe payments, and a secure MySQL database for dynamic authentication and checkout.',
     stack: ['React', 'Node.js', 'MySQL'],
     accent: 'lavender',
     icon: Globe2,
     github: 'https://github.com/hailemichaeltesfsye-hue/amazon-clone-backend',
+    demos: [{ label: 'Live Demo', href: 'https://amazon-clone-frontend-mxye-pwtq42tun-coremind2.vercel.app/' }],
+  },
+  {
+    number: '05',
+    category: 'FULL-STACK ARCHITECTURE',
+    title: 'Netflix Clone',
+    subtitle: 'High-Fidelity Streaming Platform Architecture',
+    description: 'Built a production-grade web replica mimicking the Netflix user experience, integrating REST APIs and dynamic authentication for a smooth, responsive streaming interface.',
+    stack: ['React', 'Node.js', 'REST APIs'],
+    accent: 'coral',
+    icon: Tv,
+    github: 'https://github.com/hailemichaeltesfsye-hue/Netflix_Clone_2026A',
+    demos: [{ label: 'Live Demo', href: 'https://hailemichaeltesfsye-hue.github.io/Netflix_Clone_2026A/' }],
+  },
+  {
+    number: '06',
+    category: 'FULL-STACK ARCHITECTURE',
+    title: 'Evangadi Forum',
+    subtitle: 'Full-Stack Q&A Community Platform',
+    description: 'Built a full-stack question-and-answer forum platform enabling users to post questions, submit answers, and engage in threaded discussions, backed by a secure REST API and MySQL database.',
+    stack: ['React', 'Node.js', 'MySQL'],
+    accent: 'mint',
+    icon: MessageSquare,
+    github: 'https://github.com/hailemichaeltesfsye-hue/evangadi-backend',
     demos: [
-      { label: 'Amazon Demo', href: 'https://amazon-clone-frontend-mxye-pwtq42tun-coremind2.vercel.app/' },
-      { label: 'Netflix Demo', href: 'https://hailemichaeltesfsye-hue.github.io/Netflix_Clone_2026A/' },
+      { label: 'Live Demo', href: 'https://evangadi-frontend-b6mf1540a-coremind2.vercel.app' },
+      { label: 'Frontend Repo', href: 'https://github.com/hailemichaeltesfsye-hue/evangadi-frontend' },
     ],
   },
 ]
@@ -222,7 +248,7 @@ function ProjectCard({ project }) {
       <div className="project-art">
         <div className="art-lines" />
         <div className="art-icon"><Icon size={38} strokeWidth={1.2} /></div>
-        <span className="art-label">{project.number} / 04</span>
+        <span className="art-label">{project.number} / 06</span>
       </div>
       <div className="project-body">
         <h3>{project.title}</h3>
