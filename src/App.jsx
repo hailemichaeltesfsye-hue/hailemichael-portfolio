@@ -29,8 +29,8 @@ const projects = [
     stack: ['Python', 'Multi-agent', 'P2P'],
     accent: 'gold',
     icon: Network,
-    github: 'https://github.com/hailemichaeltesfsye-hue/ai-driven-healthcare-diagnostic-loop',
-    demos: [{ label: 'Live Demo', href: 'https://ai-driven-healthcare-diagnostic-loop-izbdsqfouzvc2cvanza7ry.streamlit.app/' }],
+    github: 'https://github.com/hailemichaeltesfsye-hue/healthcare-diagnostic-loop-v2',
+    demos: [{ label: 'Live Demo', href: 'https://healthcare-diagnostic-loop-v2-euskzvszeyupkabzgrz9z2.streamlit.app/' }],
   },
   {
     number: '02',
