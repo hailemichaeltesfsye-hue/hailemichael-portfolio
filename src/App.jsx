@@ -17,6 +17,7 @@ import {
   Mail,
   Menu,
   MessageSquare,
+  Mic,
   Network,
   Send,
   Shield,
@@ -28,6 +29,10 @@ import {
   X,
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
+
+// Spoken greeting script
+const GREETING_SPEECH =
+  "Hello, and welcome to my portfolio! I am Hailemichael Tesfaye Mekuria, a Certified Agentic AI Engineer and Full-Stack Developer based in Ethiopia. I specialize in building autonomous multi-agent systems with LangGraph, Model Context Protocol, and high-performance web applications. Feel free to explore my projects, inspect my agent architectures, or test the interactive terminal below. Let's build the next layer of intelligence together!"
 
 // Projects dataset
 const projects = [
@@ -216,6 +221,8 @@ function App() {
   const [activeDagStep, setActiveDagStep] = useState(0)
   const [toastMessage, setToastMessage] = useState('')
   const [soundEnabled, setSoundEnabled] = useState(false)
+  const [isSpeaking, setIsSpeaking] = useState(false)
+  const hasSpokenRef = useRef(false)
 
   // Sound Synthesizer via Web Audio API
   const playCyberSound = (freq = 880, duration = 0.08) => {
@@ -247,6 +254,117 @@ function App() {
     navigator.clipboard.writeText('hailemichaeltesfsye@gmail.com')
     showToast('Copied hailemichaeltesfsye@gmail.com to clipboard!')
   }
+
+  // Voice Speech Synthesis Handler
+  const stopSpeech = () => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel()
+    }
+    setIsSpeaking(false)
+  }
+
+  const speakGreeting = () => {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
+      showToast('Speech synthesis is not supported in this browser.')
+      return
+    }
+
+    try {
+      window.speechSynthesis.cancel()
+
+      const utterance = new SpeechSynthesisUtterance(GREETING_SPEECH)
+      const voices = window.speechSynthesis.getVoices()
+
+      // Choose natural or pleasant English voice if available
+      const preferredVoice =
+        voices.find(
+          (v) =>
+            v.lang.startsWith('en') &&
+            (v.name.includes('Natural') ||
+              v.name.includes('Google') ||
+              v.name.includes('Samantha') ||
+              v.name.includes('David') ||
+              v.name.includes('Daniel') ||
+              v.name.includes('Guy') ||
+              v.name.includes('Aria'))
+        ) || voices.find((v) => v.lang.startsWith('en'))
+
+      if (preferredVoice) {
+        utterance.voice = preferredVoice
+      }
+
+      utterance.rate = 0.96
+      utterance.pitch = 1.0
+      utterance.volume = 1.0
+
+      utterance.onstart = () => {
+        setIsSpeaking(true)
+      }
+      utterance.onend = () => {
+        setIsSpeaking(false)
+      }
+      utterance.onerror = () => {
+        setIsSpeaking(false)
+      }
+
+      window.speechSynthesis.speak(utterance)
+      setIsSpeaking(true)
+    } catch {
+      setIsSpeaking(false)
+    }
+  }
+
+  const toggleSpeech = () => {
+    if (isSpeaking) {
+      stopSpeech()
+      showToast('Voice greeting paused.')
+    } else {
+      speakGreeting()
+      showToast('Playing voice greeting...')
+    }
+  }
+
+  // Automatic Voice Greeting on load and on first user gesture fallback
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.getVoices()
+      window.speechSynthesis.onvoiceschanged = () => {
+        window.speechSynthesis.getVoices()
+      }
+    }
+
+    const startSpeechOnce = () => {
+      if (hasSpokenRef.current) return
+      hasSpokenRef.current = true
+      speakGreeting()
+    }
+
+    // Attempt direct automatic greeting after mount
+    const timer = setTimeout(() => {
+      startSpeechOnce()
+    }, 800)
+
+    // Fallback for browsers that block audio before the first user gesture
+    const handleFirstGesture = () => {
+      if (!hasSpokenRef.current && !window.speechSynthesis?.speaking) {
+        startSpeechOnce()
+      }
+    }
+
+    window.addEventListener('click', handleFirstGesture, { once: true })
+    window.addEventListener('touchstart', handleFirstGesture, { once: true })
+    window.addEventListener('keydown', handleFirstGesture, { once: true })
+
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('click', handleFirstGesture)
+      window.removeEventListener('touchstart', handleFirstGesture)
+      window.removeEventListener('keydown', handleFirstGesture)
+      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+        window.speechSynthesis.cancel()
+      }
+    }
+  }, [])
 
   // Filter projects
   const filteredProjects = projects.filter((p) => {
@@ -344,6 +462,14 @@ function App() {
               >
                 Explore Projects <ArrowUpRight size={17} />
               </a>
+              <button
+                className={`button button-voice ${isSpeaking ? 'is-speaking' : ''}`}
+                onClick={toggleSpeech}
+                aria-label="Toggle AI Voice Greeting"
+              >
+                {isSpeaking ? <VolumeX size={17} /> : <Mic size={17} />}
+                <span>{isSpeaking ? 'Pause Voice Intro' : 'Voice Intro'}</span>
+              </button>
               <a
                 className="button button-quiet"
                 href="#contact"
@@ -512,7 +638,12 @@ function App() {
 
         {/* Interactive HTM Agent Console */}
         <section id="terminal" className="console-section container">
-          <AgentConsole onPlaySound={playCyberSound} onCopyEmail={copyEmail} />
+          <AgentConsole
+            onPlaySound={playCyberSound}
+            onCopyEmail={copyEmail}
+            onToggleVoice={toggleSpeech}
+            isSpeaking={isSpeaking}
+          />
         </section>
 
         {/* Capabilities Band */}
@@ -643,6 +774,29 @@ function App() {
         </section>
       </main>
 
+      {/* Floating AI Voice Greeting HUD */}
+      <div className={`voice-hud ${isSpeaking ? 'is-active' : ''}`}>
+        <div className="voice-hud-indicator">
+          <div className="sound-wave">
+            <span />
+            <span />
+            <span />
+            <span />
+          </div>
+          <span className="voice-hud-title">
+            {isSpeaking ? 'AI Voice Guide: Speaking...' : 'AI Voice Greeting'}
+          </span>
+        </div>
+        <button
+          className="voice-hud-btn"
+          onClick={toggleSpeech}
+          title={isSpeaking ? 'Pause Voice Greeting' : 'Play Voice Greeting'}
+        >
+          {isSpeaking ? <VolumeX size={13} /> : <Volume2 size={13} />}
+          <span>{isSpeaking ? 'Pause' : 'Play Voice'}</span>
+        </button>
+      </div>
+
       {/* Footer */}
       <footer className="footer container">
         <span>© 2026 Hailemichael Tesfaye Mekuria</span>
@@ -741,12 +895,12 @@ function ProjectCard({ project, onPlaySound }) {
 }
 
 // Interactive Agent Console Component
-function AgentConsole({ onPlaySound, onCopyEmail }) {
+function AgentConsole({ onPlaySound, onCopyEmail, onToggleVoice, isSpeaking }) {
   const [history, setHistory] = useState([
     {
       cmd: 'init --agent-core',
       output: `HTM Agent Core v2.6.4 initialized.
-Status: OPERATIONAL // Orchestrator: LangGraph // Vector Memory: ChromaDB
+Status: OPERATIONAL // Orchestrator: LangGraph // Vector Memory: ChromaDB // Audio: EN-SYNTH
 Type a command below or click a quick action to query Hailemichael's agent systems.`,
     },
   ])
@@ -763,7 +917,10 @@ Type a command below or click a quick action to query Hailemichael's agent syste
     onPlaySound?.(820, 0.05)
 
     let output = ''
-    if (cmd === 'projects' || cmd.includes('project')) {
+    if (cmd === 'voice' || cmd === 'speak' || cmd === 'intro') {
+      onToggleVoice?.()
+      output = `[AUDIO SUBSYSTEM]: ${isSpeaking ? 'Paused voice greeting.' : 'Dispatched speech synthesis unit. Playing English voice greeting...'}`
+    } else if (cmd === 'projects' || cmd.includes('project')) {
       output = `Active Systems Deployed:
 • 01. AI-Driven Healthcare Diagnostic Loop [P2P / Streamlit]
 • 02. NetsaGuard AI [LangGraph / Groq / ChromaDB / FastMCP] -> Live on Vercel
@@ -786,7 +943,8 @@ Type a command below or click a quick action to query Hailemichael's agent syste
 • LangGraph State Machine: ACTIVE (latency: 18ms)
 • ChromaDB Vector Store: ONLINE (embeddings: 1536-dim)
 • Groq LPU Gateway: SYNCHRONIZED (560 tokens/sec)
-• FastMCP Tool Router: CONNECTED`
+• FastMCP Tool Router: CONNECTED
+• Speech Synthesis Engine: READY`
     } else if (cmd === 'contact') {
       output = `Contact Coordinates:
 • Email: hailemichaeltesfsye@gmail.com
@@ -799,7 +957,7 @@ Type a command below or click a quick action to query Hailemichael's agent syste
       return
     } else {
       output = `Command '${cmd}' processed by HTM Core.
-Recognized commands: 'projects', 'skills', 'status', 'credentials', 'contact', 'clear'.`
+Recognized commands: 'voice', 'projects', 'skills', 'status', 'credentials', 'contact', 'clear'.`
     }
 
     setHistory((prev) => [...prev, { cmd: raw, output }])
@@ -841,7 +999,7 @@ Recognized commands: 'projects', 'skills', 'status', 'credentials', 'contact', '
             type="text"
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
-            placeholder="Type 'projects', 'skills', 'status', 'contact'..."
+            placeholder="Type 'projects', 'skills', 'voice', 'status', 'contact'..."
             style={{
               background: 'transparent',
               border: 'none',
@@ -859,6 +1017,13 @@ Recognized commands: 'projects', 'skills', 'status', 'credentials', 'contact', '
 
       <div className="terminal-chips">
         <span className="chip-label">Quick Actions:</span>
+        <button
+          type="button"
+          className="terminal-chip"
+          onClick={() => executeCommand('voice')}
+        >
+          &gt; voice-intro
+        </button>
         <button
           type="button"
           className="terminal-chip"
