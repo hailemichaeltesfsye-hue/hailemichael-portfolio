@@ -64,7 +64,6 @@ const projects = [
     github: 'https://github.com/hailemichaeltesfsye-hue/netsaguard-ai',
     demos: [{ label: 'Live Demo', href: 'https://netsaguard-dxa6r43es-coremind2.vercel.app/' }],
   },
- 
 {
   number: '03',
   category: 'AGENTIC AI / EDUCATION',
@@ -82,7 +81,9 @@ const projects = [
     {
       label: 'Live Demo',
       href: 'https://liqu-yohannes-afework.vercel.app/'
-    },
+    }
+  ],
+},
   
   {
     number: '04',
