@@ -64,20 +64,26 @@ const projects = [
     github: 'https://github.com/hailemichaeltesfsye-hue/netsaguard-ai',
     demos: [{ label: 'Live Demo', href: 'https://netsaguard-dxa6r43es-coremind2.vercel.app/' }],
   },
-  {
-    number: '03',
-    category: 'SMART CITIES / DIGITAL TWIN',
-    filterTag: 'agentic',
-    badge: 'AUTONOMOUS TWIN',
-    title: 'NEXUS: The Living City',
-    subtitle: 'Autonomous AI Digital Twin for Ethiopia',
-    description: 'Autonomous urban monitoring and orchestration digital twin mimicking real-time growth, energy grid balancing, traffic optimization, and resource dispatching via parallel worker agent nodes.',
-    stack: ['React HUD', 'Node.js', 'LangGraph', 'Grok API', '3D Visuals'],
-    accent: 'coral',
-    icon: Building2,
-    github: 'https://github.com/hailemichaeltesfsye-hue/-nexus-the-living-city',
-    demos: [{ label: 'Live Demo', href: 'https://nexus-the-living-city.vercel.app/' }],
-  },
+ 
+{
+  number: '03',
+  category: 'AGENTIC AI / EDUCATION',
+  filterTag: 'agentic',
+  badge: 'ORTHODOX AI',
+  title: 'LIQU YOHANNES AFEWOK',
+  subtitle: 'Ethiopian Orthodox Tewahedo Christian AI Teacher',
+  description:
+    'An interactive Ethiopian Orthodox Tewahedo Christian AI teacher for theology, Scripture study, spiritual education, and multilingual learning, designed to make Orthodox knowledge more accessible through AI.',
+  stack: ['AI', 'RAG', 'LangGraph', 'Multilingual', 'Theology', 'Education'],
+  accent: 'coral',
+  icon: Building2,
+  github: 'https://github.com/hailemichaeltesfsye-hue/liqu-yohannes-afework',
+  demos: [
+    {
+      label: 'Live Demo',
+      href: 'https://liqu-yohannes-afework.vercel.app/'
+    },
+  
   {
     number: '04',
     category: 'FULL-STACK ARCHITECTURE',
