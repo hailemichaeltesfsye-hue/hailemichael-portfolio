@@ -13,12 +13,17 @@ import {
   ExternalLink,
   GitFork,
   Globe2,
+  Headphones,
   Layers,
   Mail,
   Menu,
   MessageSquare,
   Mic,
   Network,
+  Pause,
+  Play,
+  Radio,
+  RotateCcw,
   Send,
   Shield,
   Sparkles,
@@ -325,17 +330,21 @@ function App() {
     showToast('Copied hailemichaeltesfsye@gmail.com to clipboard!')
   }
 
-  // Voice Speech Synthesis Handler
+  const [speechRate, setSpeechRate] = useState(1.0)
+  const isSpeakingRef = useRef(false)
+  const autoPlayTriggeredRef = useRef(false)
+
+  // Classical Voice Speech Synthesis Handler
   const stopSpeech = () => {
     if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
       window.speechSynthesis.cancel()
     }
     setIsSpeaking(false)
+    isSpeakingRef.current = false
   }
 
-  const speakGreeting = () => {
+  const speakGreeting = (rate = speechRate) => {
     if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
-      showToast('Speech synthesis is not supported in this browser.')
       return
     }
     try {
@@ -350,68 +359,109 @@ function App() {
               v.name.includes('Google') ||
               v.name.includes('Samantha') ||
               v.name.includes('Daniel') ||
+              v.name.includes('Arthur') ||
+              v.name.includes('Oliver') ||
               v.name.includes('David')),
         ) || voices.find((v) => v.lang.startsWith('en'))
 
       if (preferredVoice) utterance.voice = preferredVoice
-      utterance.rate = 1.02
+      utterance.rate = rate
       utterance.pitch = 1.0
 
-      utterance.onstart = () => setIsSpeaking(true)
-      utterance.onend = () => setIsSpeaking(false)
-      utterance.onerror = () => setIsSpeaking(false)
+      utterance.onstart = () => {
+        setIsSpeaking(true)
+        isSpeakingRef.current = true
+      }
+      utterance.onend = () => {
+        setIsSpeaking(false)
+        isSpeakingRef.current = false
+      }
+      utterance.onerror = () => {
+        setIsSpeaking(false)
+        isSpeakingRef.current = false
+      }
 
       window.speechSynthesis.speak(utterance)
     } catch (e) {
       setIsSpeaking(false)
+      isSpeakingRef.current = false
     }
   }
 
   const toggleSpeech = () => {
     if (isSpeaking) {
       stopSpeech()
-      showToast('Voice intro paused.')
+      showToast('Classical voice companion paused.')
     } else {
-      speakGreeting()
+      speakGreeting(speechRate)
       playCyberSound(900, 0.1)
     }
   }
 
-  // Automatic Voice Greeting on load and on first user gesture fallback
+  const replaySpeech = () => {
+    stopSpeech()
+    setTimeout(() => {
+      speakGreeting(speechRate)
+      playCyberSound(950, 0.08)
+      showToast('Replaying classical voice dispatch...')
+    }, 120)
+  }
+
+  const copyTranscript = () => {
+    navigator.clipboard.writeText(GREETING_SPEECH)
+    showToast('Voice dispatch transcript copied to clipboard!')
+  }
+
+  // Automatic Seamless Voice Playback Without Instruction
   useEffect(() => {
-    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    if (typeof window === 'undefined') return
+
+    if ('speechSynthesis' in window) {
       window.speechSynthesis.getVoices()
       window.speechSynthesis.onvoiceschanged = () => {
         window.speechSynthesis.getVoices()
       }
     }
 
-    const startSpeechOnce = () => {
-      if (hasSpokenRef.current) return
-      hasSpokenRef.current = true
-      speakGreeting()
+    const triggerPlay = () => {
+      if (autoPlayTriggeredRef.current) return
+      autoPlayTriggeredRef.current = true
+      speakGreeting(1.0)
     }
 
+    // Direct automated attempt after mount
     const timer = setTimeout(() => {
-      startSpeechOnce()
-    }, 800)
+      triggerPlay()
+    }, 600)
 
-    const handleFirstGesture = () => {
-      if (!hasSpokenRef.current && !window.speechSynthesis?.speaking) {
-        startSpeechOnce()
+    // Seamless interaction triggers (plays naturally on first scroll or touch without instructions)
+    const onNaturalInteraction = () => {
+      if (!isSpeakingRef.current && !autoPlayTriggeredRef.current) {
+        triggerPlay()
       }
+      detach()
     }
 
-    window.addEventListener('click', handleFirstGesture, { once: true })
-    window.addEventListener('touchstart', handleFirstGesture, { once: true })
-    window.addEventListener('keydown', handleFirstGesture, { once: true })
+    const detach = () => {
+      window.removeEventListener('pointerdown', onNaturalInteraction)
+      window.removeEventListener('click', onNaturalInteraction)
+      window.removeEventListener('scroll', onNaturalInteraction)
+      window.removeEventListener('wheel', onNaturalInteraction)
+      window.removeEventListener('touchstart', onNaturalInteraction)
+      window.removeEventListener('keydown', onNaturalInteraction)
+    }
+
+    window.addEventListener('pointerdown', onNaturalInteraction, { passive: true })
+    window.addEventListener('click', onNaturalInteraction, { passive: true })
+    window.addEventListener('scroll', onNaturalInteraction, { passive: true })
+    window.addEventListener('wheel', onNaturalInteraction, { passive: true })
+    window.addEventListener('touchstart', onNaturalInteraction, { passive: true })
+    window.addEventListener('keydown', onNaturalInteraction, { passive: true })
 
     return () => {
       clearTimeout(timer)
-      window.removeEventListener('click', handleFirstGesture)
-      window.removeEventListener('touchstart', handleFirstGesture)
-      window.removeEventListener('keydown', handleFirstGesture)
-      if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      detach()
+      if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel()
       }
     }
@@ -567,15 +617,6 @@ function App() {
                 Explore Systems <ArrowUpRight size={17} />
               </a>
 
-              <button
-                className={`button button-voice ${isSpeaking ? 'is-speaking' : ''}`}
-                onClick={toggleSpeech}
-                aria-label="Toggle AI Voice Greeting"
-              >
-                {isSpeaking ? <VolumeX size={17} /> : <Mic size={17} />}
-                <span>{isSpeaking ? 'Pause Voice Intro' : 'Voice Intro'}</span>
-              </button>
-
               <a
                 className="button button-quiet"
                 href="https://drive.google.com/file/d/1O4EJ0Q-Nw_7WvPVtyXmyzULZQNzE1VGL/view"
@@ -585,6 +626,99 @@ function App() {
               >
                 Review CV <ExternalLink size={14} />
               </a>
+            </div>
+
+            {/* Classical Professional Interactive Voice Deck - Displayed Prominently on Screen */}
+            <div className={`classical-voice-deck ${isSpeaking ? 'is-broadcasting' : ''}`}>
+              <div className="voice-deck-header">
+                <div className="voice-deck-status">
+                  <span className={`voice-status-bulb ${isSpeaking ? 'pulse-live' : ''}`} />
+                  <span className="voice-status-text">
+                    {isSpeaking ? 'LIVE CLASSICAL AUDIO DISPATCH' : 'CLASSICAL VOICE COMPANION // READY'}
+                  </span>
+                </div>
+
+                {/* 10-bar Golden Frequency Equalizer */}
+                <div className="voice-equalizer" aria-hidden="true">
+                  <span className="eq-bar bar-1" />
+                  <span className="eq-bar bar-2" />
+                  <span className="eq-bar bar-3" />
+                  <span className="eq-bar bar-4" />
+                  <span className="eq-bar bar-5" />
+                  <span className="eq-bar bar-6" />
+                  <span className="eq-bar bar-7" />
+                  <span className="eq-bar bar-8" />
+                  <span className="eq-bar bar-9" />
+                  <span className="eq-bar bar-10" />
+                </div>
+              </div>
+
+              {/* Displayed Spoken Transcript (Visually displayed immediately without needing to click play) */}
+              <div className="voice-transcript-box">
+                <p className="voice-script-text">
+                  <span className="voice-quote-mark">&ldquo;</span>
+                  {GREETING_SPEECH}
+                  <span className="voice-quote-mark">&rdquo;</span>
+                </p>
+              </div>
+
+              {/* Classical Interactive Controls */}
+              <div className="voice-deck-controls">
+                <button
+                  type="button"
+                  className={`voice-play-btn ${isSpeaking ? 'is-playing' : ''}`}
+                  onClick={toggleSpeech}
+                  aria-label={isSpeaking ? 'Pause Classical Voice Narration' : 'Play Classical Voice Narration'}
+                >
+                  {isSpeaking ? <Pause size={14} /> : <Play size={14} />}
+                  <span>{isSpeaking ? 'Pause Dispatch' : 'Play Classical Voice'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="voice-control-btn"
+                  onClick={replaySpeech}
+                  title="Replay Voice Dispatch from Beginning"
+                >
+                  <RotateCcw size={13} />
+                  <span>Replay</span>
+                </button>
+
+                <div className="voice-rate-toggle">
+                  <button
+                    type="button"
+                    className={`voice-rate-btn ${speechRate === 1.0 ? 'is-active' : ''}`}
+                    onClick={() => {
+                      setSpeechRate(1.0)
+                      if (isSpeaking) speakGreeting(1.0)
+                    }}
+                    title="Classical Cadence (1.0x)"
+                  >
+                    1.0x
+                  </button>
+                  <button
+                    type="button"
+                    className={`voice-rate-btn ${speechRate === 1.15 ? 'is-active' : ''}`}
+                    onClick={() => {
+                      setSpeechRate(1.15)
+                      if (isSpeaking) speakGreeting(1.15)
+                    }}
+                    title="Crisp Cadence (1.15x)"
+                  >
+                    1.15x
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  className="voice-control-btn voice-copy-btn"
+                  onClick={copyTranscript}
+                  title="Copy Transcript"
+                >
+                  <Copy size={12} />
+                  <span>Copy Text</span>
+                </button>
+              </div>
             </div>
 
             <div className="hero-meta">
