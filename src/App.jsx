@@ -617,6 +617,15 @@ function App() {
                 Explore Systems <ArrowUpRight size={17} />
               </a>
 
+              <button
+                className={`button button-voice ${isSpeaking ? 'is-speaking' : ''}`}
+                onClick={toggleSpeech}
+                aria-label="Toggle AI Voice Greeting"
+              >
+                {isSpeaking ? <VolumeX size={17} /> : <Mic size={17} />}
+                <span>{isSpeaking ? 'Pause Voice Intro' : 'Voice Intro'}</span>
+              </button>
+
               <a
                 className="button button-quiet"
                 href="https://drive.google.com/file/d/1O4EJ0Q-Nw_7WvPVtyXmyzULZQNzE1VGL/view"
@@ -626,99 +635,6 @@ function App() {
               >
                 Review CV <ExternalLink size={14} />
               </a>
-            </div>
-
-            {/* Classical Professional Interactive Voice Deck - Displayed Prominently on Screen */}
-            <div className={`classical-voice-deck ${isSpeaking ? 'is-broadcasting' : ''}`}>
-              <div className="voice-deck-header">
-                <div className="voice-deck-status">
-                  <span className={`voice-status-bulb ${isSpeaking ? 'pulse-live' : ''}`} />
-                  <span className="voice-status-text">
-                    {isSpeaking ? 'LIVE CLASSICAL AUDIO DISPATCH' : 'CLASSICAL VOICE COMPANION // READY'}
-                  </span>
-                </div>
-
-                {/* 10-bar Golden Frequency Equalizer */}
-                <div className="voice-equalizer" aria-hidden="true">
-                  <span className="eq-bar bar-1" />
-                  <span className="eq-bar bar-2" />
-                  <span className="eq-bar bar-3" />
-                  <span className="eq-bar bar-4" />
-                  <span className="eq-bar bar-5" />
-                  <span className="eq-bar bar-6" />
-                  <span className="eq-bar bar-7" />
-                  <span className="eq-bar bar-8" />
-                  <span className="eq-bar bar-9" />
-                  <span className="eq-bar bar-10" />
-                </div>
-              </div>
-
-              {/* Displayed Spoken Transcript (Visually displayed immediately without needing to click play) */}
-              <div className="voice-transcript-box">
-                <p className="voice-script-text">
-                  <span className="voice-quote-mark">&ldquo;</span>
-                  {GREETING_SPEECH}
-                  <span className="voice-quote-mark">&rdquo;</span>
-                </p>
-              </div>
-
-              {/* Classical Interactive Controls */}
-              <div className="voice-deck-controls">
-                <button
-                  type="button"
-                  className={`voice-play-btn ${isSpeaking ? 'is-playing' : ''}`}
-                  onClick={toggleSpeech}
-                  aria-label={isSpeaking ? 'Pause Classical Voice Narration' : 'Play Classical Voice Narration'}
-                >
-                  {isSpeaking ? <Pause size={14} /> : <Play size={14} />}
-                  <span>{isSpeaking ? 'Pause Dispatch' : 'Play Classical Voice'}</span>
-                </button>
-
-                <button
-                  type="button"
-                  className="voice-control-btn"
-                  onClick={replaySpeech}
-                  title="Replay Voice Dispatch from Beginning"
-                >
-                  <RotateCcw size={13} />
-                  <span>Replay</span>
-                </button>
-
-                <div className="voice-rate-toggle">
-                  <button
-                    type="button"
-                    className={`voice-rate-btn ${speechRate === 1.0 ? 'is-active' : ''}`}
-                    onClick={() => {
-                      setSpeechRate(1.0)
-                      if (isSpeaking) speakGreeting(1.0)
-                    }}
-                    title="Classical Cadence (1.0x)"
-                  >
-                    1.0x
-                  </button>
-                  <button
-                    type="button"
-                    className={`voice-rate-btn ${speechRate === 1.15 ? 'is-active' : ''}`}
-                    onClick={() => {
-                      setSpeechRate(1.15)
-                      if (isSpeaking) speakGreeting(1.15)
-                    }}
-                    title="Crisp Cadence (1.15x)"
-                  >
-                    1.15x
-                  </button>
-                </div>
-
-                <button
-                  type="button"
-                  className="voice-control-btn voice-copy-btn"
-                  onClick={copyTranscript}
-                  title="Copy Transcript"
-                >
-                  <Copy size={12} />
-                  <span>Copy Text</span>
-                </button>
-              </div>
             </div>
 
             <div className="hero-meta">
@@ -733,6 +649,8 @@ function App() {
 
           <div className="hero-visual">
             <div className="visual-grid" />
+            <div className="photo-cyber-aura" aria-hidden="true" />
+            <div className="photo-scanner-beam" aria-hidden="true" />
             <div className="orbit orbit-outer">
               <span className="orbit-node node-one" />
               <span className="orbit-node node-two" />
