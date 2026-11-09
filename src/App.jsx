@@ -467,6 +467,47 @@ function App() {
     }
   }, [])
 
+  // Handle smooth deep-link scrolling on initial load if hash is present (e.g. #work)
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const initialHash = window.location.hash
+    if (initialHash) {
+      const targetId = initialHash.replace('#', '')
+      const timer = setTimeout(() => {
+        const targetElement = document.getElementById(targetId)
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 400)
+      return () => clearTimeout(timer)
+    }
+  }, [])
+
+  // Smooth section scroll helper that avoids jarring jumps
+  const scrollToSection = (e, sectionId) => {
+    if (e && e.preventDefault) e.preventDefault()
+    setMenuOpen(false)
+    playCyberSound(750, 0.05)
+    const targetElement = document.getElementById(sectionId)
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth' })
+      if (window.history && window.history.pushState) {
+        window.history.pushState(null, '', )
+      }
+    }
+  }
+
+  // Smooth scroll to top helper
+  const scrollToTop = (e) => {
+    if (e && e.preventDefault) e.preventDefault()
+    setMenuOpen(false)
+    playCyberSound(650, 0.06)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+    if (window.history && window.history.pushState) {
+      window.history.pushState(null, '', window.location.pathname)
+    }
+  }
+
   // Filter projects
   const filteredProjects = projects.filter((p) => {
     if (activeFilter === 'all') return true
@@ -494,7 +535,7 @@ function App() {
             className="brand"
             href="#top"
             aria-label="Home"
-            onClick={() => playCyberSound(650, 0.06)}
+            onClick={scrollToTop}
           >
             <span className="brand-mark">HM</span>
             <span className="brand-text">
@@ -529,56 +570,38 @@ function App() {
           <div className={`nav-links ${menuOpen ? 'is-open' : ''}`}>
             <a
               href="#work"
-              onClick={() => {
-                setMenuOpen(false)
-                playCyberSound(750, 0.05)
-              }}
+              onClick={(e) => scrollToSection(e, 'work')}
             >
               Featured Systems
             </a>
             <a
               href="#architecture"
-              onClick={() => {
-                setMenuOpen(false)
-                playCyberSound(750, 0.05)
-              }}
+              onClick={(e) => scrollToSection(e, 'architecture')}
             >
               Agentic DAG
             </a>
             <a
               href="#terminal"
-              onClick={() => {
-                setMenuOpen(false)
-                playCyberSound(750, 0.05)
-              }}
+              onClick={(e) => scrollToSection(e, 'terminal')}
             >
               CLI Console
             </a>
             <a
               href="#capabilities"
-              onClick={() => {
-                setMenuOpen(false)
-                playCyberSound(750, 0.05)
-              }}
+              onClick={(e) => scrollToSection(e, 'capabilities')}
             >
               Toolkit
             </a>
             <a
               href="#about"
-              onClick={() => {
-                setMenuOpen(false)
-                playCyberSound(750, 0.05)
-              }}
+              onClick={(e) => scrollToSection(e, 'about')}
             >
               Credentials
             </a>
             <a
               className="nav-contact"
               href="#contact"
-              onClick={() => {
-                setMenuOpen(false)
-                playCyberSound(950, 0.07)
-              }}
+              onClick={(e) => scrollToSection(e, 'contact')}
             >
               Let&apos;s Connect <ArrowUpRight size={15} />
             </a>
@@ -612,7 +635,7 @@ function App() {
               <a
                 className="button button-primary"
                 href="#work"
-                onClick={() => playCyberSound(900, 0.08)}
+                onClick={(e) => scrollToSection(e, 'work')}
               >
                 Explore Systems <ArrowUpRight size={17} />
               </a>
@@ -1058,7 +1081,7 @@ function App() {
           <a
             href="#top"
             aria-label="Back to top of page"
-            onClick={() => playCyberSound(950, 0.08)}
+            onClick={scrollToTop}
           >
             <ChevronDown size={18} className="back-top" />
           </a>
