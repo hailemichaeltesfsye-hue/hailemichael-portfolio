@@ -425,7 +425,16 @@ function App() {
 
   return (
     <div className="site-shell">
-      {/* Background Neural Canvas */}
+      {/* Majestic Volumetric Sun Light & Celestial Horizon */}
+      <div className="sunlight-container" aria-hidden="true">
+        <div className="sunlight-core" />
+        <div className="sunlight-corona" />
+        <div className="sunlight-rays" />
+        <div className="sunlight-beam-horizontal" />
+        <div className="sunlight-haze" />
+      </div>
+
+      {/* Background Neural Canvas with Solar Dust */}
       <NeuralMatrixCanvas />
 
       {/* Navigation */}
@@ -1304,11 +1313,13 @@ function NeuralMatrixCanvas() {
         vy: (Math.random() - 0.5) * 0.45,
         radius: Math.random() * 2 + 1.2,
         color:
-          i % 3 === 0
-            ? 'rgba(213, 174, 87, '
-            : i % 3 === 1
-            ? 'rgba(0, 240, 255, '
-            : 'rgba(128, 200, 173, ',
+          i % 4 === 0
+            ? 'rgba(255, 220, 90, '
+            : i % 4 === 1
+            ? 'rgba(255, 170, 50, '
+            : i % 4 === 2
+            ? 'rgba(255, 250, 220, '
+            : 'rgba(213, 174, 87, ',
       })
     }
 
@@ -1353,7 +1364,7 @@ function NeuralMatrixCanvas() {
             ctx.moveTo(n.x, n.y)
             ctx.lineTo(m.x, m.y)
             const alpha = (1 - dist / 130) * 0.18
-            ctx.strokeStyle = 'rgba(213, 174, 87, ' + alpha + ')'
+            ctx.strokeStyle = 'rgba(255, 215, 90, ' + (alpha * 1.25) + ')'
             ctx.lineWidth = 0.75
             ctx.stroke()
           }
