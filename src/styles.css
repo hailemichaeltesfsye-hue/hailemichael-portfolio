@@ -1627,3 +1627,33 @@ h1 em {
     padding: 8px 14px;
   }
 }
+/* Flagship & Cyan Accent Modifiers */
+.cyan {
+  --accent: #00f0ff;
+  --art-glow: rgba(0, 240, 255, 0.22);
+}
+
+.flagship {
+  --accent: #ffd700;
+  --art-glow: rgba(255, 215, 0, 0.28);
+  border: 1px solid rgba(255, 215, 0, 0.4) !important;
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.7), 0 0 25px -4px rgba(255, 215, 0, 0.25) !important;
+  position: relative;
+}
+
+.flagship::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffd700, #00f0ff, transparent);
+  pointer-events: none;
+}
+
+.flagship:hover {
+  border-color: #ffd700 !important;
+  box-shadow: 0 28px 70px -10px rgba(0, 0, 0, 0.8), 0 0 50px -4px rgba(255, 215, 0, 0.5) !important;
+  transform: translateY(-9px) scale(1.02) !important;
+}
