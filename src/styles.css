@@ -858,6 +858,17 @@ h1 em {
 /* =========================================
    SECTIONS GENERAL
    ========================================= */
+.section,
+section[id],
+#work,
+#architecture,
+#terminal,
+#capabilities,
+#about,
+#contact {
+  scroll-margin-top: 90px;
+}
+
 .section {
   padding-top: 120px;
   padding-bottom: 120px;

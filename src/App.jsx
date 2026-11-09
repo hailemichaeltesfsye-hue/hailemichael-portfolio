@@ -468,31 +468,51 @@ function App() {
   }, [])
 
   // Handle smooth deep-link scrolling on initial load if hash is present (e.g. #work)
+  // and auto-clean any stale/orphaned #work hash when landing at the top hero section
   useEffect(() => {
     if (typeof window === 'undefined') return
+
     const initialHash = window.location.hash
-    if (initialHash) {
+    if (initialHash && initialHash !== '#top') {
       const targetId = initialHash.replace('#', '')
-      const timer = setTimeout(() => {
-        const targetElement = document.getElementById(targetId)
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth' })
-        }
-      }, 400)
-      return () => clearTimeout(timer)
+      const targetElement = document.getElementById(targetId)
+      if (targetElement) {
+        const timer = setTimeout(() => {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+        }, 300)
+        return () => clearTimeout(timer)
+      } else {
+        window.history.replaceState(null, '', window.location.pathname)
+      }
+    } else if (window.scrollY < 200 && window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname)
     }
   }, [])
 
-  // Smooth section scroll helper that avoids jarring jumps
+  // Auto-clean URL hash when user scrolls back to the top Hero section
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const handleScroll = () => {
+      if (window.scrollY < 180 && window.location.hash) {
+        window.history.replaceState(null, '', window.location.pathname)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Smooth section scroll helper that avoids jarring jumps and manages clean URL state
   const scrollToSection = (e, sectionId) => {
     if (e && e.preventDefault) e.preventDefault()
     setMenuOpen(false)
     playCyberSound(750, 0.05)
     const targetElement = document.getElementById(sectionId)
     if (targetElement) {
-      targetElement.scrollIntoView({ behavior: 'smooth' })
-      if (window.history && window.history.pushState) {
-        window.history.pushState(null, '', )
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', '#' + sectionId)
       }
     }
   }
@@ -503,8 +523,8 @@ function App() {
     setMenuOpen(false)
     playCyberSound(650, 0.06)
     window.scrollTo({ top: 0, behavior: 'smooth' })
-    if (window.history && window.history.pushState) {
-      window.history.pushState(null, '', window.location.pathname)
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState(null, '', window.location.pathname)
     }
   }
 
@@ -1169,9 +1189,14 @@ function AgentConsole({ onPlaySound, onCopyEmail, onToggleVoice, isSpeaking }) {
   ])
   const [inputVal, setInputVal] = useState('')
   const terminalEndRef = useRef(null)
+  const isInitialTerminalMount = useRef(true)
 
   useEffect(() => {
-    terminalEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    if (isInitialTerminalMount.current) {
+      isInitialTerminalMount.current = false
+      return
+    }
+    terminalEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
   }, [history])
 
   const executeCommand = (raw) => {
