@@ -32,9 +32,9 @@ import { useEffect, useRef, useState } from 'react'
 
 // Spoken greeting script
 const GREETING_SPEECH =
-  "Hello, and welcome to my portfolio! I am Hailemichael Tesfaye Mekuria, an Agentic AI and Full-Stack Engineer from Ethiopia. I architect autonomous multi-agent systems, including NEXUS: The Living City for Addis Ababa, NetsaGuard AI, and self-healing AutoFixer pipelines. Explore my live deployments, inspect the autonomous DAG architectures, or test the interactive terminal below. Let us engineer the next frontier of intelligence together!"
+  "Hello, and welcome to my portfolio! I am Hailemichael Tesfaye Mekuria, an Agentic AI and Full-Stack Engineer from Ethiopia. I architect autonomous multi-agent systems, including NEXUS: The Living City for Addis Ababa, NetsaGuard AI, and decentralized healthcare diagnostic platforms. Explore my live deployments, inspect the autonomous DAG architectures, or test the interactive terminal below. Let us engineer the next frontier of intelligence together!"
 
-// Projects dataset (100% Based on Real Systems - Netflix Clone removed, NEXUS Flagship added)
+// Projects dataset (100% Based on Real Systems - Clean, Validated & High-Impact)
 const projects = [
   {
     number: '01',
@@ -66,37 +66,6 @@ const projects = [
   },
   {
     number: '02',
-    category: 'AUTONOMOUS REPAIR / DEVOPS AI',
-    filterTag: 'agentic',
-    badge: '⚡ VULTR HACKATHON',
-    title: 'AutoFixer Multi-Agent Cockpit',
-    subtitle: 'Autonomous Self-Healing Repository Repair & AST Synthesizer',
-    description:
-      'Autonomous dev loop engineered for the Vultr Agent Rush Hackathon. Shallow clones remote git repositories into isolated sandboxes, isolates syntax and test failures, synthesizes verified AST patches, and pushes live git deliveries with zero human intervention.',
-    stack: [
-      'TypeScript',
-      'React 19',
-      'Node.js',
-      'Express',
-      'Docker Sandbox',
-      'AST Synthesizer',
-    ],
-    accent: 'cyan',
-    icon: Terminal,
-    github: 'https://github.com/hailemichaeltesfsye-hue/my-fullstack-task-manager',
-    demos: [
-      {
-        label: 'Target Repo',
-        href: 'https://github.com/hailemichaeltesfsye-hue/my-fullstack-task-manager',
-      },
-      {
-        label: 'Private Engine',
-        href: 'https://github.com/hailemichaeltesfsye-hue/autofixer-private',
-      },
-    ],
-  },
-  {
-    number: '03',
     category: 'DIGITAL RIGHTS / AGENTIC SYSTEMS',
     filterTag: 'agentic',
     badge: 'LANGGRAPH DAG',
@@ -116,7 +85,7 @@ const projects = [
     ],
   },
   {
-    number: '04',
+    number: '03',
     category: 'HEALTHCARE AI / AGENTIC SYSTEMS',
     filterTag: 'agentic',
     badge: 'P2P CONSENSUS',
@@ -136,7 +105,7 @@ const projects = [
     ],
   },
   {
-    number: '05',
+    number: '04',
     category: 'AGENTIC AI / THEOLOGY & RAG',
     filterTag: 'agentic',
     badge: 'ORTHODOX AI',
@@ -156,7 +125,7 @@ const projects = [
     ],
   },
   {
-    number: '06',
+    number: '05',
     category: 'FULL-STACK ARCHITECTURE',
     filterTag: 'fullstack',
     badge: 'COMMERCIAL E-COMMERCE',
@@ -180,7 +149,7 @@ const projects = [
     ],
   },
   {
-    number: '07',
+    number: '06',
     category: 'FULL-STACK ARCHITECTURE',
     filterTag: 'fullstack',
     badge: 'COMMUNITY PLATFORM',
@@ -221,7 +190,7 @@ const architectureStages = [
     subtitle: 'Cyclic State Transitions & Byzantine Consensus',
     desc: 'Dynamic supervisor agents coordinate specialized worker nodes through cyclic graphs with deterministic state transitions, self-healing retries, and automated peer review before synthesis.',
     tech: 'LangGraph StateMachine • Multi-Agent Consensus • Cyclic DAGs',
-    projectRef: 'NEXUS Living City & AutoFixer Cockpit',
+    projectRef: 'NEXUS Living City & NetsaGuard AI',
   },
   {
     id: '03',
@@ -241,11 +210,11 @@ const architectureStages = [
   },
   {
     id: '05',
-    title: 'HITL Validation & Remote Git Delivery',
-    subtitle: 'Human-In-The-Loop Safety Gate & Autonomous Push',
-    desc: 'High-risk actions require cryptographic HMAC authorization or automated AST test pass verification before dispatching critical state changes or remote Git deliveries.',
-    tech: 'HMAC-SHA256 • HITL Glassmorphism Gate • Bidirectional Git Delivery',
-    projectRef: 'AutoFixer Cockpit & NEXUS Living City',
+    title: 'HITL Validation & Consensus Gate',
+    subtitle: 'Human-In-The-Loop Safety Gate & Audit Trail',
+    desc: 'High-risk actions require cryptographic HMAC authorization or automated Byzantine multi-agent verification before dispatching critical state changes or orbital city actuators.',
+    tech: 'HMAC-SHA256 • HITL Glassmorphism Gate • Cryptographic Audit Trail',
+    projectRef: 'NEXUS Living City & NetsaGuard AI',
   },
 ]
 
@@ -283,7 +252,7 @@ const skillGroups = [
       'Docker Containers & Sandboxes',
       'Vercel & Modal Cloud Deployments',
       'Git / GitHub Actions CI/CD',
-      'AST Synthesizer & Self-Healing',
+      'Multi-Service System Architecture',
     ],
   },
 ]
@@ -576,8 +545,8 @@ function App() {
             <p className="hero-subtitle">
               I&apos;m <strong>Hailemichael Tesfaye Mekuria</strong>, an{' '}
               <strong>Agentic AI & Full-Stack Engineer</strong> from Ethiopia. I architect
-              autonomous multi-agent digital twins, self-healing code repair engines,
-              and high-fidelity web systems.
+              autonomous multi-agent digital twins, sovereign privacy defense systems,
+              and high-fidelity web platforms.
             </p>
 
             <div className="hero-actions">
@@ -613,9 +582,9 @@ function App() {
               <span className="meta-line" />
               <span>Kombolcha, Ethiopia</span>
               <span className="meta-line" />
-              <span>Quantic MS AIE Candidate</span>
+              <span>Wollo University Software Engineering</span>
               <span className="meta-line" />
-              <span>Meta & Vultr Hackathons</span>
+              <span>Meta Global AI Hackathon Competitor</span>
             </div>
           </div>
 
@@ -646,7 +615,7 @@ function App() {
             <span className="magic-particle particle-6 mint" />
 
             <div className="signal signal-one">/ nexus.digital-twin</div>
-            <div className="signal signal-two">/ autofixer.sandbox</div>
+            <div className="signal signal-two">/ netsaguard.defense</div>
             <div className="signal signal-three">/ multi-agent.langgraph</div>
 
             <div className="visual-caption">
@@ -662,10 +631,10 @@ function App() {
               <Bot size={15} /> Verified Reality
             </span>
             <span className="trust-tag">🏆 Meta Global AI Hackathon ($150K)</span>
-            <span className="trust-tag">⚡ Vultr Agent Rush Hackathon</span>
             <span className="trust-tag">🌐 10+ Live Deployments</span>
             <span className="trust-tag">🐍 Python 43.4% • TypeScript 33.7%</span>
             <span className="trust-tag">🛡️ LangGraph State Machine</span>
+            <span className="trust-tag">⚡ Model Context Protocol (FastMCP)</span>
           </div>
         </section>
 
@@ -679,10 +648,9 @@ function App() {
               </h2>
             </div>
             <p>
-              From the <strong>NEXUS Addis Ababa Digital Twin</strong> to self-healing{' '}
-              <strong>AutoFixer</strong> AST repair loops and decentralized healthcare
-              consensus, each project transforms complex agentic logic into live
-              verifiable software.
+              From the <strong>NEXUS Addis Ababa Digital Twin</strong> to sovereign
+              privacy defense hubs and decentralized healthcare consensus, each project
+              transforms complex agentic logic into live verifiable software.
             </p>
           </div>
 
@@ -704,7 +672,7 @@ function App() {
                 playCyberSound(750, 0.05)
               }}
             >
-              Agentic AI & Swarms (5)
+              Agentic AI & Swarms (4)
             </button>
             <button
               className={`filter-btn ${activeFilter === 'fullstack' ? 'is-active' : ''}`}
@@ -834,7 +802,7 @@ function App() {
           </div>
         </section>
 
-        {/* About & Credentials Section */}
+        {/* About & Credentials Section (Cleaned & Focused on Verified Achievements) */}
         <section id="about" className="section container about-section">
           <div className="about-label">
             <span className="section-kicker">Credentials / 04</span>
@@ -871,34 +839,17 @@ function App() {
             </div>
 
             <div className="experience-row">
-              <span className="exp-date">2026 — PRESENT</span>
-              <div>
-                <h3>Master of Science in AI Engineering (MS AIE) Candidate</h3>
-                <p className="exp-org">
-                  Quantic School of Business and Technology{' '}
-                  <span>/ Washington, DC · 13-Month Accredited Master</span>
-                </p>
-                <p>
-                  Accelerated graduate degree in AI system architecture, intelligent
-                  agents, and enterprise transformation. Completing foundational AI
-                  engineering and business management smartcases.
-                </p>
-              </div>
-            </div>
-
-            <div className="experience-row">
               <span className="exp-date">2026</span>
               <div>
                 <h3>Hackathon Competitor & Lead AI Architect</h3>
                 <p className="exp-org">
-                  Meta Global AI Developer Hackathon & Vultr: Agent Rush Hackathon
+                  Meta Global AI Developer Hackathon ($150K Grand Challenge)
                 </p>
                 <p>
-                  Architected <strong>NEXUS: The Living City</strong> ($150K Meta Challenge)
-                  utilizing Meta Llama 3.3 70B, Modal H100 GPUs, and Meta SAM Vision for
-                  metropolitan urban governance. Built <strong>AutoFixer</strong>, an
-                  autonomous self-healing AST repair engine executing Docker sandboxed
-                  CI/CD patch synthesis.
+                  Architected <strong>NEXUS: The Living City</strong>, an autonomous AI
+                  digital twin and metropolitan operating system for Addis Ababa. Integrated
+                  Meta Llama 3.3 70B cognitive reasoning, Modal Serverless H100 GPUs, and
+                  Meta SAM aerial computer vision with Llama-Guard 3 safety guardrails.
                 </p>
               </div>
             </div>
@@ -915,6 +866,20 @@ function App() {
                   with Agentic AI and multi-agent development skills. Represented Wollo
                   University in international technical lead selection and coordinated
                   awareness campaigns for sovereign AI architectures.
+                </p>
+              </div>
+            </div>
+
+            <div className="experience-row">
+              <span className="exp-date">2023 — PRESENT</span>
+              <div>
+                <h3>BSc in Software Engineering</h3>
+                <p className="exp-org">
+                  Wollo University, Kombolcha Institute of Technology (KIOT)
+                </p>
+                <p>
+                  Focusing on distributed systems, artificial intelligence, algorithms,
+                  database management, and enterprise software engineering.
                 </p>
               </div>
             </div>
@@ -1067,7 +1032,7 @@ function ProjectCard({ project, onPlaySound }) {
         <div className="art-icon">
           <Icon size={38} strokeWidth={1.3} />
         </div>
-        <span className="art-label">{project.number} / 07</span>
+        <span className="art-label">{project.number} / 06</span>
       </div>
 
       <div className="project-body">
@@ -1115,7 +1080,7 @@ function AgentConsole({ onPlaySound, onCopyEmail, onToggleVoice, isSpeaking }) {
     {
       cmd: 'init --agent-core',
       output:
-        'HTM Agent Core v3.0 initialized. Status: OPERATIONAL // Orchestrator: LangGraph // Vector Memory: ChromaDB // Audio: EN-SYNTH // Cognitive Core: Meta Llama 3.3 70B\nType a command below or click a quick action to inspect Hailemichael\'s systems.',
+        'HTM Agent Core v3.0 initialized. Status: OPERATIONAL // Orchestrator: LangGraph // Vector Memory: ChromaDB // Cognitive Core: Meta Llama 3.3 70B\nType a command below or click a quick action to inspect Hailemichael\'s systems.',
     },
   ])
   const [inputVal, setInputVal] = useState('')
@@ -1150,21 +1115,14 @@ function AgentConsole({ onPlaySound, onCopyEmail, onToggleVoice, isSpeaking }) {
 • Safety Floor: Llama-Guard 3 Constitutional AI
 • Live Production URL: https://nexus-the-living-city.vercel.app
 • GitHub: https://github.com/hailemichaeltesfsye-hue/-nexus-the-living-city`
-    } else if (cmd === 'autofixer') {
-      output = `[AUTOFIXER COCKPIT]
-• Event: Vultr Agent Rush Hackathon
-• Architecture: Self-healing autonomous repository repair & AST patch synthesizer
-• Capabilities: Shallow git clone sandboxes, syntax & AST verification, automated bidirectional remote git deliveries
-• Repositories: hailemichaeltesfsye-hue/my-fullstack-task-manager & autofixer-private`
     } else if (cmd === 'projects' || cmd.includes('project')) {
       output = `Active Systems Deployed:
 • 01. NEXUS: The Living City [Meta Llama 3.3 70B / Modal H100] -> Live: nexus-the-living-city.vercel.app
-• 02. AutoFixer Cockpit [Vultr Hackathon / AST Synthesizer / Docker Sandbox]
-• 03. NetsaGuard AI [LangGraph / Groq / ChromaDB / FastMCP] -> Live on Vercel
-• 04. AI Healthcare Diagnostic Loop v2 [P2P Consensus / Streamlit / Medical Graph]
-• 05. LIQU YOHANNES AFEWOK [Ethiopian Orthodox AI Teacher / RAG / LangGraph] -> Live on Vercel
-• 06. Amazon Full-Stack Architecture [React / Node.js / MySQL / Stripe] -> Live on Vercel
-• 07. Evangadi Forum [React / Node.js / MySQL / JWT Auth] -> Live on Vercel`
+• 02. NetsaGuard AI [LangGraph / Groq / ChromaDB / FastMCP] -> Live on Vercel
+• 03. AI Healthcare Diagnostic Loop v2 [P2P Consensus / Streamlit / Medical Graph]
+• 04. LIQU YOHANNES AFEWOK [Ethiopian Orthodox AI Teacher / RAG / LangGraph] -> Live on Vercel
+• 05. Amazon Full-Stack Architecture [React / Node.js / MySQL / Stripe] -> Live on Vercel
+• 06. Evangadi Forum [React / Node.js / MySQL / JWT Auth] -> Live on Vercel`
     } else if (cmd === 'skills' || cmd.includes('stack')) {
       output = `Engineering Stack (100% Reality):
 [Agentic AI] LangGraph, FastMCP, ChromaDB, Meta Llama 3.3 70B, Modal H100 GPUs, Multi-Agent Swarms
@@ -1173,11 +1131,9 @@ function AgentConsole({ onPlaySound, onCopyEmail, onToggleVoice, isSpeaking }) {
 [Backend & DB] Node.js, Express, FastAPI, PostgreSQL, MySQL, Firebase Firestore, Docker`
     } else if (cmd === 'credentials' || cmd.includes('cert')) {
       output = `Verified Credentials & Affiliations:
-• Candidate: Master of Science in AI Engineering (MS AIE) - Quantic School of Business and Technology (Washington, DC)
 • Certificate of Completion in Agentic Engineering (August 28, 2026) - NSK AI / Zerra Build Global Cohort
-• Software Engineering Student - Wollo University (Kombolcha, Ethiopia)
 • Meta Global AI Developer Hackathon Competitor ($150K Challenge - NEXUS Addis Ababa)
-• Vultr Agent Rush Hackathon Competitor (AutoFixer Cockpit)
+• BSc in Software Engineering Student - Wollo University (Kombolcha, Ethiopia)
 • Campus Lead Candidate & Udara Ambassador - The Udara Project`
     } else if (cmd === 'status' || cmd.includes('ping') || cmd === 'stats') {
       output = `Live GitHub Reality Stats:
@@ -1201,7 +1157,7 @@ function AgentConsole({ onPlaySound, onCopyEmail, onToggleVoice, isSpeaking }) {
       return
     } else {
       output = `Command '${cmd}' processed by HTM Core.
-Recognized commands: 'nexus', 'autofixer', 'projects', 'skills', 'status', 'credentials', 'voice', 'contact', 'clear'.`
+Recognized commands: 'nexus', 'projects', 'skills', 'status', 'credentials', 'voice', 'contact', 'clear'.`
     }
 
     setHistory((prev) => [...prev, { cmd: raw, output }])
@@ -1246,7 +1202,7 @@ Recognized commands: 'nexus', 'autofixer', 'projects', 'skills', 'status', 'cred
             type="text"
             value={inputVal}
             onChange={(e) => setInputVal(e.target.value)}
-            placeholder="Type 'nexus', 'autofixer', 'projects', 'skills', 'voice'..."
+            placeholder="Type 'nexus', 'projects', 'skills', 'voice', 'contact'..."
             style={{
               background: 'transparent',
               border: 'none',
@@ -1270,13 +1226,6 @@ Recognized commands: 'nexus', 'autofixer', 'projects', 'skills', 'status', 'cred
           onClick={() => executeCommand('nexus')}
         >
           &gt; nexus
-        </button>
-        <button
-          type="button"
-          className="terminal-chip"
-          onClick={() => executeCommand('autofixer')}
-        >
-          &gt; autofixer
         </button>
         <button
           type="button"
