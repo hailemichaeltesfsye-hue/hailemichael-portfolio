@@ -587,6 +587,13 @@ function App() {
             </button>
           </div>
 
+          {menuOpen && (
+            <div
+              className="nav-backdrop"
+              onClick={() => setMenuOpen(false)}
+              aria-hidden="true"
+            />
+          )}
           <div className={`nav-links ${menuOpen ? 'is-open' : ''}`}>
             <a
               href="#work"
