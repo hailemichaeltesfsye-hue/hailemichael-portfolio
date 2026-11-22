@@ -85,7 +85,7 @@ const projects = [
     demos: [
       {
         label: 'Live Demo',
-        href: 'https://netsaguard-dxa6r43es-coremind2.vercel.app/',
+        href: 'https://netsaguard-ai.vercel.app/',
       },
     ],
   },
