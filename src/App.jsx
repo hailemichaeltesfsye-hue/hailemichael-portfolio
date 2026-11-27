@@ -37,7 +37,7 @@ import { useEffect, useRef, useState } from 'react'
 
 // Spoken greeting script
 const GREETING_SPEECH =
-  "Hello, and welcome to my portfolio! I am Hailemichael Tesfaye Mekuria, an Agentic AI and Full-Stack Engineer from Ethiopia. I architect autonomous multi-agent systems, including NEXUS: The Living City for Addis Ababa, NetsaGuard AI, and decentralized healthcare diagnostic platforms. Explore my live deployments, inspect the autonomous DAG architectures, or test the interactive terminal below. Let us engineer the next frontier of intelligence together!"
+  "Hello, and welcome to my portfolio! I am Hailemichael Tesfaye Mekuria, an Agentic AI and Full-Stack Developer from Ethiopia. I architect autonomous multi-agent systems, including NEXUS: The Living City for Addis Ababa, NetsaGuard AI, and decentralized healthcare diagnostic platforms. Explore my live deployments, inspect the autonomous DAG architectures, or test the interactive terminal below. Let us engineer the next frontier of intelligence together!"
 
 // Projects dataset (100% Based on Real Systems - Clean, Validated & High-Impact)
 const projects = [
