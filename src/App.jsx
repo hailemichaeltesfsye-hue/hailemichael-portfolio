@@ -629,7 +629,7 @@ function App() {
 
             <p className="hero-subtitle">
               I&apos;m <strong>Hailemichael Tesfaye Mekuria</strong>, an{' '}
-              <strong>Agentic AI & Full-Stack Engineer</strong> from Ethiopia. I architect
+              <strong>Agentic AI & Full-Stack Developer</strong> from Ethiopia. I architect
               autonomous multi-agent digital twins, sovereign privacy defense systems,
               and high-fidelity web platforms.
             </p>
